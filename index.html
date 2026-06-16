@@ -4,623 +4,986 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#07111F" />
-  <meta name="description" content="Building Autonomous Systems for Those Who Protect India. Ashvadha is an Indian defence technology company focused on developing autonomous systems that strengthen national capability, enhance human effectiveness, and contribute to India's long-term strategic independence." />
+  <meta name="description" content="Building Autonomous Systems for Those Who Protect India." />
   <meta property="og:title" content="Ashvadha — Autonomous Systems for India's Defence" />
   <meta property="og:description" content="Building Autonomous Systems for Those Who Protect India." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ashvadha.in" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/jpeg" href="ashvadhalogo.jpeg">
-  <link rel="apple-touch-icon" href="ashvadhalogo.jpeg">
   <title>Ashvadha — Autonomous Systems for India's Defence</title>
+
   <style>
+    /* ═══════════════════════════════════════════
+       RESET & ROOT
+    ═══════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:         #07111F;
-      --ink-2:       #0A1828;
-      --ink-3:       #0F2235;
-      --ink-alt:     #06101C;
-      --line:        rgba(255,255,255,0.08);
-      --line-strong: rgba(255,255,255,0.14);
-      --text:        #F5F7FA;
-      --text-dim:    rgba(245,247,250,0.65);
-      --text-mute:   rgba(245,247,250,0.42);
-      --saffron:     #FF9933;
-      --green-ind:   #138808;
-      --radius:      0;
+      --ink:          #07111F;
+      --ink-alt:      #060E1A;
+      --ink-deep:     #040C16;
+      --surface:      rgba(255,255,255,0.025);
+      --surface-hi:   rgba(255,255,255,0.055);
+      --line:         rgba(255,255,255,0.07);
+      --line-hi:      rgba(255,255,255,0.15);
+      --text:         #F0F4FA;
+      --text-dim:     rgba(240,244,250,0.60);
+      --text-mute:    rgba(240,244,250,0.35);
+      --saffron:      #FF9933;
+      --saffron-dim:  rgba(255,153,51,0.18);
+      --saffron-glow: rgba(255,153,51,0.08);
+      --green-ind:    #138808;
+      --mono:         "Share Tech Mono", monospace;
+      --display:      "Orbitron", sans-serif;
+      --body:         "Montserrat", sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
 
     body {
-      background: var(--ink);
+      background: var(--ink-deep);
       color: var(--text);
-      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: var(--body);
       font-weight: 400;
-      font-size: 16px;
       line-height: 1.6;
-      letter-spacing: 0.005em;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    ::selection { background: rgba(255,153,51,0.35); color: #fff; }
+    ::selection { background: rgba(255,153,51,0.3); color: #fff; }
 
-    /* ─── TYPOGRAPHY ─── */
-    .font-display { font-family: "Orbitron", sans-serif; letter-spacing: 0.02em; }
-    .eyebrow {
-      font-family: "Orbitron", sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.32em;
-      color: rgba(245,247,250,0.55);
+    /* ═══════════════════════════════════════════
+       LOADER
+    ═══════════════════════════════════════════ */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--ink-deep);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 24px;
+      transition: opacity 600ms ease, visibility 600ms ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+
+    .loader-logo {
+      font-family: var(--display);
+      font-size: 13px; letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.9);
       text-transform: uppercase;
     }
-
-    /* ─── LAYOUT ─── */
-    .container { max-width: 1320px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 3.5rem); }
-
-    /* ─── BACKGROUNDS ─── */
-    .bg-hero {
-      background:
-        radial-gradient(1100px 700px at 80% -10%, rgba(255,153,51,0.05), transparent 60%),
-        radial-gradient(900px 600px at 0% 110%, rgba(19,136,8,0.04), transparent 60%),
-        radial-gradient(1400px 900px at 50% 40%, rgba(40,80,130,0.18), transparent 70%),
-        linear-gradient(180deg, #07111F 0%, #060E1A 100%);
+    .loader-bar-wrap {
+      width: 200px; height: 1px;
+      background: rgba(255,255,255,0.1);
+      position: relative; overflow: hidden;
     }
-    .bg-alt { background: var(--ink-alt); }
-
-    .grid-overlay {
-      position: absolute; inset: 0; pointer-events: none;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,0.033) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.033) 1px, transparent 1px);
-      background-size: 88px 88px;
-      mask-image: radial-gradient(ellipse at 50% 35%, black 35%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse at 50% 35%, black 35%, transparent 80%);
+    .loader-bar {
+      position: absolute; left: -100%; top: 0;
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+      animation: loaderSweep 1.6s ease forwards;
+    }
+    @keyframes loaderSweep {
+      0%   { left: -100%; }
+      100% { left: 100%; }
+    }
+    .loader-pct {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.2em;
+      color: rgba(255,153,51,0.7);
     }
 
-    /* ─── TRICOLOR ─── */
+    /* ═══════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════ */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 4rem);
+    }
+
+    /* ═══════════════════════════════════════════
+       TRICOLOR
+    ═══════════════════════════════════════════ */
     .tricolor {
-      background: linear-gradient(
-        90deg,
-        rgba(255,153,51,0.85) 0%, rgba(255,153,51,0.85) 33%,
-        rgba(245,247,250,0.85) 33%, rgba(245,247,250,0.85) 66%,
-        rgba(19,136,8,0.85) 66%, rgba(19,136,8,0.85) 100%
+      background: linear-gradient(90deg,
+        #FF9933 0% 33.33%,
+        rgba(240,244,250,0.9) 33.33% 66.66%,
+        #138808 66.66% 100%
       );
     }
 
-    /* ─── HAIRLINE ─── */
-    .hairline { height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.18), transparent); }
-
-    /* ─── SECTION BORDERS ─── */
-    section { position: relative; border-top: 1px solid rgba(255,255,255,0.05); }
-
-    /* ─── CINEMATIC IMAGE DIVIDERS ─── */
-    .img-divider {
-      position: relative;
-      width: 100%;
-      height: clamp(280px, 40vw, 560px);
-      overflow: hidden;
-      border-top: none;
-      display: block;
-    }
-    .img-divider img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      transition: transform 0.1s linear;
-    }
-    /* top and bottom gradient fade to blend with adjacent sections */
-    .img-divider::before,
-    .img-divider::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0;
-      height: 120px;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .img-divider::before {
-      top: 0;
-      background: linear-gradient(to bottom, var(--fade-color, #07111F), transparent);
-    }
-    .img-divider::after {
-      bottom: 0;
-      background: linear-gradient(to top, var(--fade-color, #07111F), transparent);
-    }
-    /* caption overlay */
-    .img-divider-caption {
-      position: absolute;
-      bottom: 32px;
-      right: clamp(1.5rem, 5vw, 3.5rem);
-      z-index: 2;
-      font-family: "Orbitron", sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-    }
-
-    /* ─── BUTTONS ─── */
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 28px;
-      border: 1px solid rgba(245,247,250,0.85);
-      color: var(--ink);
-      background: var(--text);
-      font-family: "Orbitron", sans-serif;
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none;
-      transition: background 220ms ease, color 220ms ease, border-color 220ms ease, transform 180ms ease;
-    }
-    .btn-primary:hover { background: transparent; color: var(--text); border-color: var(--text); transform: translateY(-1px); }
-    .btn-primary svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 28px;
-      border: 1px solid rgba(245,247,250,0.22);
-      color: var(--text);
-      background: transparent;
-      font-family: "Orbitron", sans-serif;
-      font-size: 12px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none;
-      transition: border-color 220ms ease, background 220ms ease, transform 180ms ease;
-    }
-    .btn-ghost:hover { border-color: rgba(245,247,250,0.7); background: rgba(245,247,250,0.04); transform: translateY(-1px); }
-
-    /* ─── CARDS ─── */
-    .ash-card {
-      position: relative;
-      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
-      border: 1px solid var(--line);
-      padding: 36px 32px;
-      transition: border-color 320ms ease, background 320ms ease;
-    }
-    .ash-card:hover { border-color: var(--line-strong); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015)); }
-    .ash-card::before {
-      content: ""; position: absolute; top: 0; left: 0;
-      width: 36px; height: 1px; background: rgba(255,153,51,0.7);
-    }
-
-    .corner-frame { position: relative; }
-    .corner-frame::before, .corner-frame::after {
-      content: ""; position: absolute;
-      width: 14px; height: 14px;
-      border-color: rgba(245,247,250,0.45); border-style: solid; border-width: 0;
-    }
-    .corner-frame::before { top: -1px; left: -1px; border-top-width: 1px; border-left-width: 1px; }
-    .corner-frame::after  { bottom: -1px; right: -1px; border-bottom-width: 1px; border-right-width: 1px; }
-
-    /* ─── UNDER-LINK ─── */
-    .under-link { position: relative; display: inline-block; text-decoration: none; color: inherit; }
-    .under-link::after {
-      content: ""; position: absolute; left: 0; bottom: -4px;
-      width: 100%; height: 1px;
-      background: rgba(245,247,250,0.85);
-      transform: scaleX(0); transform-origin: left center;
-      transition: transform 360ms cubic-bezier(0.2,0.6,0.2,1);
-    }
-    .under-link:hover::after { transform: scaleX(1); }
-
-    /* ─── REVEAL ANIMATION ─── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 800ms cubic-bezier(0.2,0.6,0.2,1), transform 800ms cubic-bezier(0.2,0.6,0.2,1);
-      will-change: opacity, transform;
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-
-    /* ─── PARTICLES ─── */
-    .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-    .particles span {
-      position: absolute;
-      background: rgba(255,255,255,0.55);
-      border-radius: 50%;
-      box-shadow: 0 0 6px rgba(255,255,255,0.35);
-      animation: drift linear infinite;
-      opacity: 0;
-    }
-    @keyframes drift {
-      0%   { transform: translateY(20px);   opacity: 0; }
-      15%  {                                 opacity: 0.9; }
-      85%  {                                 opacity: 0.55; }
-      100% { transform: translateY(-160px); opacity: 0; }
-    }
-
-    /* ─── HALO ─── */
-    .halo { animation: haloPulse 4s ease-in-out infinite; }
-    @keyframes haloPulse {
-      0%, 100% { opacity: 0.35; transform: scale(1) translateX(-50%); }
-      50%      { opacity: 0.55; transform: scale(1.04) translateX(-50%); }
-    }
-
-    /* ─── SCROLL CUE ─── */
-    .scroll-cue { animation: scrollPulse 2400ms ease-in-out infinite; }
-    @keyframes scrollPulse {
-      0%   { transform: translateY(0);   opacity: 0.4; }
-      50%  { transform: translateY(6px); opacity: 1; }
-      100% { transform: translateY(0);   opacity: 0.4; }
-    }
-
-    /* ─── NAV ─── */
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
     #site-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      transition: background 500ms ease, border-color 500ms ease, backdrop-filter 500ms ease;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      transition: background 500ms, border-color 500ms, backdrop-filter 500ms;
       border-bottom: 1px solid transparent;
     }
     #site-nav.scrolled {
-      background: rgba(7,17,31,0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(4,12,22,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-color: rgba(255,255,255,0.06);
     }
+    .nav-tricolor {
+      height: 2px;
+      opacity: 0;
+      transition: opacity 500ms;
+    }
+    #site-nav.scrolled .nav-tricolor { opacity: 1; }
+
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
       height: 72px;
     }
     .nav-logo {
       display: flex; align-items: center; gap: 12px;
-      background: none; border: none; cursor: pointer; padding: 0;
       text-decoration: none;
     }
-    .nav-logo img { height: 36px; width: 36px; object-fit: contain; border-radius: 3px; }
-    .nav-logo span {
-      font-family: "Orbitron", sans-serif;
-      font-size: 15px; font-weight: 600;
-      letter-spacing: 0.22em; color: rgba(255,255,255,0.9);
+    .nav-logo img { height: 34px; width: 34px; object-fit: contain; border-radius: 3px; }
+    .nav-logo-text {
+      font-family: var(--display);
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.92);
       transition: color 200ms;
     }
-    .nav-logo:hover span { color: #fff; }
+    .nav-logo:hover .nav-logo-text { color: #fff; }
 
-    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links {
+      display: flex; align-items: center; gap: 40px;
+    }
     .nav-links a {
-      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(255,255,255,0.65); text-decoration: none;
+      font-family: var(--display);
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      position: relative;
       transition: color 200ms;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 100%; height: 1px;
+      background: var(--saffron);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 300ms cubic-bezier(0.2,0.8,0.2,1);
     }
     .nav-links a:hover { color: #fff; }
-    .nav-links a.under-link::after { background: rgba(255,255,255,0.85); }
+    .nav-links a:hover::after { transform: scaleX(1); }
 
     .nav-cta {
-      display: inline-flex; align-items: center;
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 10px 18px;
-      font-family: "Orbitron", sans-serif;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(255,255,255,0.9); text-decoration: none;
-      transition: border-color 200ms, background 200ms;
+      font-family: var(--display);
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--ink);
+      background: var(--text);
+      border: 1px solid var(--text);
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: background 200ms, color 200ms, border-color 200ms;
     }
-    .nav-cta:hover { border-color: #fff; background: rgba(255,255,255,0.04); }
+    .nav-cta:hover { background: transparent; color: var(--text); }
 
-    .nav-hamburger {
-      display: none; flex-direction: column; gap: 6px;
+    .nav-ham {
+      display: none; flex-direction: column; gap: 5px;
       background: none; border: none; cursor: pointer; padding: 6px;
     }
-    .nav-hamburger span { display: block; height: 1px; background: rgba(255,255,255,0.8); transition: width 200ms; }
-    .nav-hamburger span:nth-child(1) { width: 24px; }
-    .nav-hamburger span:nth-child(2) { width: 24px; }
-    .nav-hamburger span:nth-child(3) { width: 16px; margin-left: auto; }
+    .nav-ham span {
+      display: block; height: 1px;
+      background: rgba(255,255,255,0.8);
+      transition: width 200ms, transform 300ms, opacity 200ms;
+    }
+    .nav-ham span:nth-child(1) { width: 22px; }
+    .nav-ham span:nth-child(2) { width: 22px; }
+    .nav-ham span:nth-child(3) { width: 14px; margin-left: auto; }
+    .nav-ham.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 22px; }
+    .nav-ham.open span:nth-child(2) { opacity: 0; }
+    .nav-ham.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 22px; }
 
     .nav-mobile {
-      display: none;
+      display: none; background: rgba(4,12,22,0.98);
+      backdrop-filter: blur(20px);
       border-top: 1px solid rgba(255,255,255,0.06);
-      background: rgba(7,17,31,0.97);
-      backdrop-filter: blur(12px);
     }
     .nav-mobile.open { display: block; }
-    .nav-mobile-inner { padding: 24px 0; display: flex; flex-direction: column; gap: 16px; }
+    .nav-mobile-inner {
+      padding: 32px 0;
+      display: flex; flex-direction: column; gap: 24px;
+    }
     .nav-mobile a {
-      font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
-      color: rgba(255,255,255,0.75); text-decoration: none;
+      font-family: var(--display);
+      font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7); text-decoration: none;
       transition: color 200ms;
     }
     .nav-mobile a:hover { color: #fff; }
 
-    /* ─── HERO ─── */
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
     #hero {
-      border-top: none;
-      min-height: 100svh;
-      position: relative; overflow: hidden;
-    }
-    .hero-tricolor-bar { position: absolute; top: 0; left: 0; right: 0; height: 1px; opacity: 0.3; }
-    .hero-halo {
-      position: absolute;
-      top: -160px; left: 50%;
-      width: 680px; height: 680px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(40,90,150,0.22) 0%, transparent 60%);
-      pointer-events: none;
-      transform-origin: 0 50%;
-    }
-    .hero-content {
       position: relative;
-      padding-top: clamp(140px, 18vw, 200px);
-      padding-bottom: clamp(80px, 10vw, 128px);
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--ink-deep);
+      border-top: none;
     }
-    .hero-label { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
-    .hero-label span { display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.4); }
 
-    h1.hero-headline {
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(36px, 6.5vw, 78px);
-      font-weight: 600;
-      line-height: 1.04;
-      letter-spacing: -0.01em;
-      max-width: 1100px;
-      color: #fff;
+    /* Animated radar rings */
+    .radar-rings {
+      position: absolute;
+      right: -10vw; top: 50%;
+      transform: translateY(-50%);
+      width: 80vw; height: 80vw;
+      max-width: 900px; max-height: 900px;
+      pointer-events: none; z-index: 0;
     }
-    h1.hero-headline .dim { color: rgba(255,255,255,0.55); }
+    .radar-rings circle {
+      fill: none;
+      stroke: rgba(255,153,51,0.06);
+      stroke-width: 1;
+      transform-origin: center;
+    }
+    .radar-rings circle:nth-child(1) { r: 20%; animation: ringPulse 4s ease-in-out 0s infinite; }
+    .radar-rings circle:nth-child(2) { r: 35%; animation: ringPulse 4s ease-in-out 0.5s infinite; }
+    .radar-rings circle:nth-child(3) { r: 50%; animation: ringPulse 4s ease-in-out 1s infinite; }
+    .radar-rings circle:nth-child(4) { r: 65%; animation: ringPulse 4s ease-in-out 1.5s infinite; }
+    .radar-rings circle:nth-child(5) { r: 80%; animation: ringPulse 4s ease-in-out 2s infinite; }
+
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.4; stroke-width: 1; }
+      50% { opacity: 1; stroke-width: 1.5; }
+    }
+
+    /* Radar sweep line */
+    .radar-sweep {
+      position: absolute;
+      right: -10vw; top: 50%;
+      transform: translateY(-50%);
+      width: 80vw; height: 80vw;
+      max-width: 900px; max-height: 900px;
+      pointer-events: none; z-index: 0;
+    }
+    .radar-sweep line {
+      stroke: rgba(255,153,51,0.3);
+      stroke-width: 1;
+      transform-origin: 50% 50%;
+      animation: sweep 6s linear infinite;
+    }
+    @keyframes sweep {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Grid background */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 80% at 30% 50%, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 30% 50%, black 30%, transparent 80%);
+    }
+
+    /* Top tricolor bar */
+    .hero-top-bar {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; opacity: 0.6; z-index: 5;
+    }
+
+    /* Ambient glow */
+    .hero-glow {
+      position: absolute; pointer-events: none; z-index: 0;
+    }
+    .hero-glow-1 {
+      top: -200px; left: -100px;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,153,51,0.04) 0%, transparent 65%);
+    }
+    .hero-glow-2 {
+      bottom: -200px; right: 0;
+      width: 900px; height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,80,160,0.14) 0%, transparent 65%);
+    }
+
+    /* Floating particles */
+    .particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .particles span {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.6);
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(1);   opacity: 0; }
+      10%  {                                        opacity: 1; }
+      90%  {                                        opacity: 0.4; }
+      100% { transform: translateY(-120px) scale(0.5); opacity: 0; }
+    }
+
+    /* Hero content */
+    .hero-content {
+      position: relative; z-index: 10;
+      padding: clamp(120px,16vw,180px) 0 clamp(80px,10vw,120px);
+    }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 700ms 400ms ease forwards;
+    }
+    .hero-eyebrow-line {
+      width: 48px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--saffron));
+    }
+    .hero-eyebrow-text {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.28em;
+      color: rgba(255,153,51,0.8);
+      text-transform: uppercase;
+    }
+
+    .hero-headline {
+      font-family: var(--display);
+      font-size: clamp(38px, 6.5vw, 84px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: #fff;
+      max-width: 1050px;
+      opacity: 0; animation: fadeUp 900ms 600ms ease forwards;
+    }
+    .hero-headline .line-dim { color: rgba(255,255,255,0.45); }
+    .hero-headline .line-accent { color: var(--saffron); }
+
+    /* Typed cursor */
+    .typed-cursor {
+      display: inline-block;
+      width: 3px; height: 0.85em;
+      background: var(--saffron);
+      margin-left: 6px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
     .hero-sub {
-      margin-top: 40px;
-      max-width: 760px;
-      font-size: clamp(15px, 1.3vw, 17px);
-      line-height: 1.75;
-      color: rgba(255,255,255,0.65);
+      margin-top: 36px;
+      max-width: 700px;
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 1.8;
+      color: rgba(255,255,255,0.58);
       font-weight: 300;
+      opacity: 0; animation: fadeUp 900ms 900ms ease forwards;
     }
 
-    .hero-ctas { margin-top: 56px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+    .hero-ctas {
+      margin-top: 52px;
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+      opacity: 0; animation: fadeUp 900ms 1100ms ease forwards;
+    }
 
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      background: var(--text); color: var(--ink-deep);
+      border: 1px solid var(--text);
+      font-family: var(--display); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: color 300ms, border-color 300ms;
+    }
+    .btn-primary::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: var(--ink-deep);
+      transform: translateX(-101%);
+      transition: transform 350ms cubic-bezier(0.7,0,0.3,1);
+      z-index: 0;
+    }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary:hover { color: var(--text); border-color: var(--text); }
+    .btn-primary span, .btn-primary svg { position: relative; z-index: 1; }
+    .btn-primary svg { width: 14px; height: 14px; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-family: var(--display); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      transition: border-color 300ms, background 300ms;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.04); }
+
+    /* Hero stats ticker */
     .hero-stats {
-      margin-top: clamp(64px, 9vw, 128px);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      background: rgba(255,255,255,0.06);
+      margin-top: clamp(60px,9vw,120px);
+      display: grid; grid-template-columns: repeat(4,1fr);
       border: 1px solid rgba(255,255,255,0.06);
+      opacity: 0; animation: fadeUp 900ms 1300ms ease forwards;
     }
     .hero-stat {
-      background: var(--ink);
-      padding: 20px 24px;
+      padding: 22px 26px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.015);
     }
-    .hero-stat-k { font-family: "Orbitron", sans-serif; font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(245,247,250,0.55); }
-    .hero-stat-v { margin-top: 8px; font-family: "Orbitron", sans-serif; font-size: 13px; letter-spacing: 0.06em; color: #fff; }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat::before {
+      content: ""; position: absolute; top: 0; left: 0;
+      width: 28px; height: 1px;
+      background: var(--saffron); opacity: 0.6;
+    }
+    .hero-stat-k {
+      font-family: var(--mono);
+      font-size: 9px; letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.35); text-transform: uppercase;
+    }
+    .hero-stat-v {
+      margin-top: 8px;
+      font-family: var(--display);
+      font-size: 12px; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.9);
+    }
 
-    .hero-scroll-cue {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    /* Scroll cue */
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
       background: none; border: none; cursor: pointer;
-      color: rgba(255,255,255,0.45);
-      transition: color 200ms;
+      opacity: 0; animation: fadeIn 1s 2s ease forwards;
     }
-    .hero-scroll-cue:hover { color: rgba(255,255,255,0.8); }
-    .hero-scroll-cue .eyebrow { font-size: 10px; }
-    .hero-scroll-cue svg { width: 16px; height: 16px; }
-
-    /* ─── MISSION ─── */
-    #mission { background: var(--ink); padding: clamp(80px, 10vw, 160px) 0; }
-    .two-col { display: grid; grid-template-columns: 4fr 8fr; gap: clamp(40px, 5vw, 80px); align-items: start; }
-    .section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-    .section-label span.bar { display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.4); }
-    h2.section-title {
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 600;
-      line-height: 1.05;
-      letter-spacing: -0.01em;
+    .hero-scroll-text {
+      font-family: var(--mono);
+      font-size: 9px; letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.3); text-transform: uppercase;
     }
-    h2.section-title .dim { color: rgba(255,255,255,0.55); }
+    .hero-scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { transform: scaleY(1); transform-origin: top; opacity: 0.6; }
+      50% { transform: scaleY(1.3); opacity: 1; }
+    }
 
-    .body-text { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.85; color: rgba(255,255,255,0.72); font-weight: 300; }
-    .body-text p + p { margin-top: 28px; }
-    .body-text .highlight { color: rgba(255,255,255,0.87); }
+    /* ═══════════════════════════════════════════
+       SHARED ANIMATIONS
+    ═══════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
 
-    /* ─── APPROACH ─── */
-    #approach { background: var(--ink-alt); padding: clamp(80px, 10vw, 160px) 0; }
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 900ms cubic-bezier(0.2,0.8,0.2,1), transform 900ms cubic-bezier(0.2,0.8,0.2,1);
+      will-change: opacity, transform;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .reveal-left {
+      opacity: 0; transform: translateX(-28px);
+      transition: opacity 900ms cubic-bezier(0.2,0.8,0.2,1), transform 900ms cubic-bezier(0.2,0.8,0.2,1);
+    }
+    .reveal-left.in { opacity: 1; transform: translateX(0); }
+
+    /* ═══════════════════════════════════════════
+       IMAGE DIVIDERS
+    ═══════════════════════════════════════════ */
+    .img-divider {
+      position: relative;
+      width: 100%;
+      height: clamp(260px, 38vw, 540px);
+      overflow: hidden;
+    }
+    .img-divider img {
+      width: 100%;
+      height: 130%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      will-change: transform;
+    }
+    .img-divider::before,
+    .img-divider::after {
+      content: ""; position: absolute;
+      left: 0; right: 0; height: 140px; z-index: 2; pointer-events: none;
+    }
+    .img-divider::before {
+      top: 0;
+      background: linear-gradient(to bottom, var(--fade-top, var(--ink-deep)), transparent);
+    }
+    .img-divider::after {
+      bottom: 0;
+      background: linear-gradient(to top, var(--fade-bottom, var(--ink-deep)), transparent);
+    }
+    .img-divider-tag {
+      position: absolute; bottom: 28px; left: clamp(1.25rem,5vw,4rem);
+      z-index: 3;
+      font-family: var(--mono);
+      font-size: 14px; letter-spacing: 0.23em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.665);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .img-divider-tag::before {
+      content: ""; display: block;
+      width: 24px; height: 1px;
+      background: rgba(255,153,51,0.5);
+    }
+
+    /* Status HUD overlay (for 1.png — ops room) */
+    .hud-overlay {
+      position: absolute; top: 28px; left: clamp(1.25rem,5vw,4rem);
+      z-index: 3; pointer-events: none;
+      font-family: var(--mono);
+      font-size: 9px; letter-spacing: 0.18em;
+      color: rgba(255,153,51,0.55);
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+    .hud-dot {
+      display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--saffron); margin-right: 8px;
+      animation: hudBlink 2s step-end infinite;
+    }
+    @keyframes hudBlink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    /* ═══════════════════════════════════════════
+       SECTION SHARED
+    ═══════════════════════════════════════════ */
+    section { position: relative; }
+    section + section { border-top: 1px solid rgba(255,255,255,0.04); }
+
+    .sec-pad { padding: clamp(80px,10vw,160px) 0; }
+
+    .section-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .section-eyebrow .bar {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, var(--saffron), transparent);
+    }
+    .section-eyebrow .label {
+      font-family: var(--mono);
+      font-size: 10px; letter-spacing: 0.28em;
+      color: rgba(255,153,51,0.6); text-transform: uppercase;
+    }
+
+    h2.sh {
+      font-family: var(--display);
+      font-size: clamp(30px, 3.8vw, 54px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+      color: #fff;
+    }
+    h2.sh .dim { color: rgba(255,255,255,0.38); }
+
+    .body-prose {
+      font-size: clamp(14px, 1.05vw, 16px);
+      line-height: 1.9;
+      color: rgba(255,255,255,0.62);
+      font-weight: 300;
+    }
+    .body-prose p + p { margin-top: 26px; }
+    .body-prose em { color: rgba(255,255,255,0.85); font-style: normal; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: clamp(40px,5vw,96px);
+      align-items: start;
+    }
+
+    /* ═══════════════════════════════════════════
+       MISSION
+    ═══════════════════════════════════════════ */
+    #mission { background: var(--ink-deep); }
+
+    .mission-quote {
+      margin-top: 48px;
+      padding: 28px 32px;
+      border-left: 2px solid var(--saffron);
+      background: rgba(255,153,51,0.04);
+    }
+    .mission-quote p {
+      font-family: var(--display);
+      font-size: clamp(14px,1.1vw,16px);
+      letter-spacing: 0.03em;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.82);
+    }
+
+    /* ═══════════════════════════════════════════
+       APPROACH
+    ═══════════════════════════════════════════ */
+    #approach { background: var(--ink-alt); }
+
     .approach-cards {
       margin-top: 64px;
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      background: rgba(255,255,255,0.05);
+      display: grid; grid-template-columns: repeat(3,1fr);
       border: 1px solid rgba(255,255,255,0.06);
     }
     .approach-card {
-      background: var(--ink);
-      padding: 36px 32px;
-      min-height: 380px;
-      display: flex; flex-direction: column;
+      padding: 40px 36px;
+      border-right: 1px solid rgba(255,255,255,0.06);
       position: relative;
+      background: var(--ink-deep);
+      transition: background 350ms;
+      overflow: hidden;
     }
+    .approach-card:last-child { border-right: none; }
     .approach-card::before {
       content: ""; position: absolute; top: 0; left: 0;
-      width: 36px; height: 1px; background: rgba(255,153,51,0.7);
+      width: 40px; height: 2px; background: var(--saffron);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 400ms cubic-bezier(0.2,0.8,0.2,1);
     }
-    .approach-card-n {
-      font-family: "Orbitron", sans-serif;
-      font-size: 12px; letter-spacing: 0.32em; color: rgba(255,255,255,0.45);
+    .approach-card:hover::before { transform: scaleX(1); }
+    .approach-card:hover { background: rgba(255,153,51,0.02); }
+
+    /* Animated corner brackets on hover */
+    .approach-card::after {
+      content: ""; position: absolute;
+      bottom: 12px; right: 12px;
+      width: 18px; height: 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      transition: width 300ms, height 300ms, border-color 300ms;
+    }
+    .approach-card:hover::after {
+      width: 28px; height: 28px;
+      border-color: rgba(255,153,51,0.4);
+    }
+
+    .card-num {
+      font-family: var(--mono);
+      font-size: 10px; letter-spacing: 0.28em;
+      color: rgba(255,255,255,0.25);
     }
     .approach-card h3 {
       margin-top: 40px;
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(18px, 1.6vw, 24px);
+      font-family: var(--display);
+      font-size: clamp(16px,1.5vw,22px);
+      font-weight: 600;
+      letter-spacing: 0.02em;
       line-height: 1.2;
-      letter-spacing: 0.01em;
     }
-    .approach-card p { margin-top: 24px; font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.65); font-weight: 300; }
+    .approach-card p {
+      margin-top: 20px;
+      font-size: 14px; line-height: 1.85;
+      color: rgba(255,255,255,0.55); font-weight: 300;
+    }
 
-    /* ─── ABOUT ─── */
-    #about { background: var(--ink); padding: clamp(80px, 10vw, 160px) 0; }
-    .about-logo-wrap {
-      margin-top: 56px;
-      position: relative;
-      padding: 32px;
+    /* ═══════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════ */
+    #about { background: var(--ink-deep); }
+
+    .about-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 40px;
+      padding: 12px 20px;
       border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.015);
-      max-width: 420px;
     }
-    .about-logo-wrap img { width: 100%; height: auto; object-fit: contain; mix-blend-mode: screen; opacity: 0.9; }
-    .about-logo-wrap::after {
-      content: ""; position: absolute; bottom: -1px; left: 0;
-      width: 64px; height: 1px; background: rgba(255,153,51,0.7);
+    .about-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--saffron);
+      animation: hudBlink 3s ease-in-out infinite;
+    }
+    .about-badge span {
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
     }
 
-    /* ─── TEAM ─── */
-    #team { background: var(--ink-alt); padding: clamp(80px, 10vw, 160px) 0; }
+    /* ═══════════════════════════════════════════
+       TEAM
+    ═══════════════════════════════════════════ */
+    #team { background: var(--ink-alt); }
+
     .team-grid {
       margin-top: 64px;
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 0;
-      background: rgba(255,255,255,0.05);
+      display: grid; grid-template-columns: repeat(2,1fr);
       border: 1px solid rgba(255,255,255,0.06);
-      max-width: 1080px;
+      max-width: 1040px;
     }
     .team-card {
-      background: var(--ink);
-      padding: clamp(40px, 5vw, 48px);
-      min-height: 300px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      position: relative;
+      padding: clamp(36px,4vw,52px);
+      background: var(--ink-deep);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+      transition: background 350ms;
     }
+    .team-card:last-child { border-right: none; }
+    .team-card:hover { background: rgba(255,153,51,0.015); }
+
+    /* Animated scan line on hover */
+    .team-card::after {
+      content: ""; position: absolute;
+      left: 0; top: -100%; right: 0;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(255,153,51,0.03) 50%, transparent 100%);
+      transition: top 600ms ease;
+    }
+    .team-card:hover::after { top: 100%; }
+
     .team-avatar {
-      width: 80px; height: 80px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.02);
+      width: 72px; height: 72px;
+      border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden; position: relative;
+      flex-shrink: 0;
+    }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .team-avatar-init {
+      width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
-      font-family: "Orbitron", sans-serif;
-      font-size: 22px; letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.85);
-    }
-    .team-card-top { display: flex; align-items: center; gap: 24px; }
-    .team-card-top .bar { width: 48px; height: 1px; background: rgba(255,255,255,0.2); }
-    .team-name { font-family: "Orbitron", sans-serif; font-size: clamp(20px, 2vw, 28px); letter-spacing: 0.01em; margin-top: 40px; }
-    .team-role { margin-top: 12px; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.55); font-family: "Orbitron", sans-serif; }
-    .team-email { margin-top: 24px; font-size: 13px; color: rgba(255,255,255,0.65); }
-
-    /* ─── JOIN ─── */
-    #join { background: var(--ink); padding: clamp(80px, 10vw, 160px) 0; overflow: hidden; }
-    .join-inner { max-width: 1100px; margin: 0 auto; text-align: center; position: relative; }
-    .join-glow-1 {
-      position: absolute; top: -128px; right: -10%;
-      width: 520px; height: 520px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,153,51,0.08) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .join-glow-2 {
-      position: absolute; bottom: -128px; left: -10%;
-      width: 520px; height: 520px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(19,136,8,0.07) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .join-label { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 24px; }
-    .join-label span.bar { display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.4); }
-    h2.join-title {
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(36px, 5.5vw, 68px);
-      font-weight: 600; line-height: 1.05; letter-spacing: -0.01em;
-    }
-    .join-body { margin: 40px auto 0; max-width: 720px; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.85; color: rgba(255,255,255,0.65); font-weight: 300; }
-    .join-body + .join-body { margin-top: 20px; color: rgba(255,255,255,0.55); }
-    .join-cta { margin-top: 56px; }
-    .join-divider { margin: 80px auto 0; width: 280px; height: 2px; }
-
-    /* ─── CONTACT ─── */
-    #contact { background: var(--ink-alt); padding: clamp(80px, 10vw, 160px) 0; }
-    .contact-entries {
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.012);
-    }
-    .contact-entry {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: clamp(28px, 3vw, 36px);
-      text-decoration: none; color: inherit;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      transition: background 200ms;
-    }
-    .contact-entry:last-child { border-bottom: none; }
-    .contact-entry:hover { background: rgba(255,255,255,0.02); }
-    .contact-entry-left { display: flex; align-items: center; gap: 20px; }
-    .contact-icon {
-      width: 44px; height: 44px;
-      border: 1px solid rgba(255,255,255,0.15);
-      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-size: 18px;
       color: rgba(255,255,255,0.7);
-      transition: color 200ms, border-color 200ms;
+      background: rgba(255,255,255,0.03);
     }
-    .contact-entry:hover .contact-icon { color: #fff; border-color: rgba(255,255,255,0.4); }
-    .contact-icon svg { width: 16px; height: 16px; }
-    .contact-addr { font-family: "Orbitron", sans-serif; font-size: clamp(15px, 1.3vw, 19px); letter-spacing: 0.02em; }
-    .contact-who { margin-top: 4px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); font-family: "Orbitron", sans-serif; }
-    .contact-arrow { color: rgba(255,255,255,0.4); transition: color 200ms, transform 200ms; }
-    .contact-entry:hover .contact-arrow { color: #fff; transform: translate(2px,-2px); }
+    .team-top { display: flex; align-items: center; gap: 20px; }
+    .team-top-line { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+    .team-name {
+      margin-top: 36px;
+      font-family: var(--display);
+      font-size: clamp(18px,1.8vw,26px);
+      font-weight: 600; letter-spacing: 0.02em;
+    }
+    .team-role {
+      margin-top: 10px;
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(255,153,51,0.65);
+    }
+    .team-email {
+      margin-top: 20px; display: inline-block;
+      font-size: 13px; color: rgba(255,255,255,0.45);
+      text-decoration: none; position: relative;
+      transition: color 200ms;
+    }
+    .team-email::after {
+      content: ""; position: absolute; left: 0; bottom: -3px;
+      width: 0; height: 1px; background: var(--saffron);
+      transition: width 300ms ease;
+    }
+    .team-email:hover { color: rgba(255,255,255,0.8); }
+    .team-email:hover::after { width: 100%; }
+
+    /* ═══════════════════════════════════════════
+       JOIN
+    ═══════════════════════════════════════════ */
+    #join {
+      background: var(--ink-deep);
+      overflow: hidden;
+    }
+    .join-inner {
+      max-width: 1060px; margin: 0 auto;
+      text-align: center; position: relative;
+    }
+    .join-glows {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .join-glow-a {
+      position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,153,51,0.07) 0%, transparent 65%);
+    }
+    .join-glow-b {
+      position: absolute; bottom: -100px; left: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(19,136,8,0.06) 0%, transparent 65%);
+    }
+    h2.join-title {
+      font-family: var(--display);
+      font-size: clamp(34px,5vw,66px);
+      font-weight: 700;
+      line-height: 1.04; letter-spacing: -0.02em;
+    }
+    .join-body {
+      margin: 36px auto 0; max-width: 680px;
+      font-size: clamp(14px,1.1vw,16px); line-height: 1.85;
+      color: rgba(255,255,255,0.58); font-weight: 300;
+    }
+    .join-divider {
+      margin: 64px auto 0; width: 240px; height: 2px;
+    }
+
+    /* ═══════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════ */
+    #contact { background: var(--ink-alt); }
+
+    .contact-list {
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .contact-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: clamp(24px,2.5vw,36px) clamp(24px,2.5vw,40px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-decoration: none; color: inherit;
+      background: rgba(255,255,255,0.01);
+      transition: background 250ms;
+      position: relative; overflow: hidden;
+    }
+    .contact-row::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: var(--saffron);
+      transform: scaleY(0);
+      transition: transform 300ms cubic-bezier(0.2,0.8,0.2,1);
+    }
+    .contact-row:hover::before { transform: scaleY(1); }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row:hover { background: rgba(255,153,51,0.03); }
+
+    .contact-left { display: flex; align-items: center; gap: 20px; }
+    .contact-icon {
+      width: 42px; height: 42px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.55);
+      transition: border-color 250ms, color 250ms, background 250ms;
+      flex-shrink: 0;
+    }
+    .contact-row:hover .contact-icon {
+      border-color: var(--saffron);
+      color: var(--saffron);
+      background: rgba(255,153,51,0.06);
+    }
+    .contact-icon svg { width: 15px; height: 15px; }
+    .contact-addr {
+      font-family: var(--display);
+      font-size: clamp(13px,1.1vw,17px);
+      letter-spacing: 0.02em;
+    }
+    .contact-who {
+      margin-top: 4px;
+      font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .contact-arrow {
+      color: rgba(255,255,255,0.25);
+      transition: color 250ms, transform 250ms;
+    }
+    .contact-row:hover .contact-arrow { color: var(--saffron); transform: translate(3px,-3px); }
     .contact-arrow svg { width: 18px; height: 18px; }
 
-    /* ─── FOOTER ─── */
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
     footer {
-      background: var(--ink);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: clamp(40px, 5vw, 56px) 0;
+      background: var(--ink-deep);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: clamp(40px,5vw,60px) 0;
     }
     .footer-inner {
       display: flex; flex-wrap: wrap; align-items: center;
       justify-content: space-between; gap: 24px;
     }
-    .footer-brand { display: flex; align-items: center; gap: 12px; }
-    .footer-brand img { height: 36px; width: 36px; object-fit: contain; border-radius: 3px; }
-    .footer-brand-name { font-family: "Orbitron", sans-serif; font-size: 14px; letter-spacing: 0.22em; color: #fff; }
-    .footer-brand-tagline { margin-top: 4px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: "Orbitron", sans-serif; }
-    .footer-divider { display: flex; align-items: center; gap: 12px; }
-    .footer-divider .bar { width: 40px; height: 1px; background: rgba(255,255,255,0.2); }
-    .footer-divider .tri { width: 96px; height: 2px; }
-    .footer-copy { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: "Orbitron", sans-serif; }
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-brand img { height: 34px; width: 34px; object-fit: contain; border-radius: 3px; }
+    .footer-brand-name {
+      font-family: var(--display); font-size: 13px;
+      letter-spacing: 0.3em; color: rgba(255,255,255,0.85);
+    }
+    .footer-brand-tag {
+      margin-top: 4px;
+      font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-center { display: flex; align-items: center; gap: 14px; }
+    .footer-center .bar { width: 40px; height: 1px; background: rgba(255,255,255,0.15); }
+    .footer-center .tri { width: 80px; height: 2px; }
+    .footer-copy {
+      font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .two-col { grid-template-columns: 1fr; }
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .two-col { grid-template-columns: 1fr; gap: 48px; }
       .approach-cards { grid-template-columns: 1fr; }
+      .approach-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .approach-card:last-child { border-bottom: none; }
       .team-grid { grid-template-columns: 1fr; }
-      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .team-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .team-card:last-child { border-bottom: none; }
+      .hero-stats { grid-template-columns: repeat(2,1fr); }
       .nav-links, .nav-cta { display: none !important; }
-      .nav-hamburger { display: flex; }
-      .hero-scroll-cue { display: none; }
-      .footer-divider { display: none; }
-      .img-divider { height: clamp(180px, 45vw, 320px); }
+      .nav-ham { display: flex; }
+      .hero-scroll { display: none; }
+      .footer-center { display: none; }
+      .radar-rings, .radar-sweep { display: none; }
     }
 
     @media (max-width: 540px) {
       .hero-stats { grid-template-columns: 1fr 1fr; }
+      .img-divider { height: clamp(180px,50vw,300px); }
     }
 
-    /* ─── REDUCED MOTION ─── */
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-      .halo, .scroll-cue, .particles span { animation: none !important; }
+      .reveal, .reveal-left { opacity: 1 !important; transform: none !important; transition: none !important; }
+      * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     }
   </style>
 </head>
 <body>
 
+<!-- ══════════ LOADER ══════════ -->
+<div id="loader">
+  <div class="loader-logo">ASHVADHA</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-pct" id="loader-pct">INITIALIZING…</div>
+</div>
+
 <!-- ══════════ NAV ══════════ -->
 <header id="site-nav">
+  <div class="nav-tricolor tricolor"></div>
   <div class="container">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo" onclick="smoothTo(event,'hero')">
-        <img src="ashvadhalogo.jpeg" alt="Ashvadha" style="height:36px;width:36px;object-fit:contain;border-radius:3px;">  
-        <span>ASHVADHA</span>
+        <img src="ashvadhalogo.jpeg" alt="Ashvadha">
+        <span class="nav-logo-text">ASHVADHA</span>
       </a>
-
       <nav class="nav-links">
-        <a href="#mission" class="under-link" onclick="smoothTo(event,'mission')">Mission</a>
-        <a href="#approach" class="under-link" onclick="smoothTo(event,'approach')">Approach</a>
-        <a href="#about" class="under-link" onclick="smoothTo(event,'about')">About</a>
-        <a href="#team" class="under-link" onclick="smoothTo(event,'team')">Team</a>
-        <a href="#contact" class="under-link" onclick="smoothTo(event,'contact')">Contact</a>
+        <a href="#mission"  onclick="smoothTo(event,'mission')">Mission</a>
+        <a href="#approach" onclick="smoothTo(event,'approach')">Approach</a>
+        <a href="#about"    onclick="smoothTo(event,'about')">About</a>
+        <a href="#team"     onclick="smoothTo(event,'team')">Team</a>
+        <a href="#contact"  onclick="smoothTo(event,'contact')">Contact</a>
       </nav>
-
-      <a href="#contact" class="nav-cta" onclick="smoothTo(event,'contact')">Contact</a>
-
-      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <a href="#contact" class="nav-cta" onclick="smoothTo(event,'contact')">Get In Touch</a>
+      <button class="nav-ham" id="nav-ham" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -628,93 +991,127 @@
   <div class="nav-mobile" id="nav-mobile">
     <div class="container">
       <div class="nav-mobile-inner">
-        <a href="#mission" onclick="smoothTo(event,'mission');closeMenu()">Mission</a>
-        <a href="#approach" onclick="smoothTo(event,'approach');closeMenu()">Approach</a>
-        <a href="#about" onclick="smoothTo(event,'about');closeMenu()">About</a>
-        <a href="#team" onclick="smoothTo(event,'team');closeMenu()">Team</a>
-        <a href="#contact" onclick="smoothTo(event,'contact');closeMenu()">Contact</a>
+        <a href="#mission"  onclick="smoothTo(event,'mission');mobileClose()">Mission</a>
+        <a href="#approach" onclick="smoothTo(event,'approach');mobileClose()">Approach</a>
+        <a href="#about"    onclick="smoothTo(event,'about');mobileClose()">About</a>
+        <a href="#team"     onclick="smoothTo(event,'team');mobileClose()">Team</a>
+        <a href="#contact"  onclick="smoothTo(event,'contact');mobileClose()">Contact</a>
       </div>
     </div>
   </div>
 </header>
 
 <!-- ══════════ HERO ══════════ -->
-<section id="hero" class="bg-hero">
-  <div class="grid-overlay"></div>
+<section id="hero">
+  <div class="hero-top-bar tricolor"></div>
+  <div class="hero-grid"></div>
+
+  <!-- Radar -->
+  <svg class="radar-rings" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+    <circle cx="50" cy="50"/>
+    <circle cx="50" cy="50"/>
+    <circle cx="50" cy="50"/>
+    <circle cx="50" cy="50"/>
+    <circle cx="50" cy="50"/>
+  </svg>
+  <svg class="radar-sweep" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="sweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="rgba(255,153,51,0)" />
+        <stop offset="100%" stop-color="rgba(255,153,51,0.4)" />
+      </linearGradient>
+    </defs>
+    <line x1="50" y1="50" x2="90" y2="50" stroke="url(#sweepGrad)" stroke-width="0.5"/>
+  </svg>
+
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
   <div class="particles" id="particles" aria-hidden="true"></div>
-  <div class="hero-tricolor-bar tricolor"></div>
-  <div class="hero-halo halo"></div>
 
   <div class="container">
     <div class="hero-content">
 
-      <div class="reveal hero-label">
-        <span></span>
-        <span class="eyebrow"></span>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text"></span>
       </div>
 
-      <h1 class="hero-headline reveal" style="transition-delay:80ms">
-        Building Autonomous Systems
-        <br>
-        <span class="dim">for Those Who </span>Protect India.
+      <h1 class="hero-headline">
+        Building Autonomous<br>
+        <span class="line-dim">Systems </span><span id="typed-word"></span><span class="typed-cursor"></span><br>
+        <span class="line-accent">for Those Who Protect India.</span>
       </h1>
 
-      <p class="hero-sub reveal" style="transition-delay:240ms">
-        Ashvadha is an Indian defence technology company focused on developing
-        autonomous systems that strengthen national capability, enhance human
-        effectiveness, and address critical challenges in modern defence.
+      <p class="hero-sub">
+        Ashvadha is an Indian defence technology company building autonomous systems
+        that strengthen national capability, augment human effectiveness,
+        and secure India's long-term strategic independence.
       </p>
 
-      <div class="hero-ctas reveal" style="transition-delay:420ms">
+      <div class="hero-ctas">
         <a href="#contact" class="btn-primary" onclick="smoothTo(event,'contact')">
-          Contact Us
+          <span>Contact Us</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a href="#join" class="btn-ghost" onclick="smoothTo(event,'join')">Join the Mission</a>
       </div>
 
-      <div class="hero-stats reveal" style="transition-delay:680ms">
-        <div class="hero-stat"><div class="hero-stat-k">Domain</div><div class="hero-stat-v">Defence Technology</div></div>
-        <div class="hero-stat"><div class="hero-stat-k">Origin</div><div class="hero-stat-v">India</div></div>
-        <div class="hero-stat"><div class="hero-stat-k">Focus</div><div class="hero-stat-v">Autonomous Systems</div></div>
-        <div class="hero-stat"><div class="hero-stat-k">Stage</div><div class="hero-stat-v">Early</div></div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-k">Domain</div>
+          <div class="hero-stat-v">Defence Technology</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-k">Origin</div>
+          <div class="hero-stat-v">India</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-k">Focus</div>
+          <div class="hero-stat-v">Autonomous Systems</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-k">Stage</div>
+          <div class="hero-stat-v">Early-POC · Building</div>
+        </div>
       </div>
-
     </div>
   </div>
 
-  <button class="hero-scroll-cue" onclick="smoothTo(null,'mission')">
-    <span class="eyebrow">Scroll</span>
-    <svg class="scroll-cue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+  <button class="hero-scroll" onclick="smoothTo(null,'divider-1')" aria-label="Scroll down">
+    <span class="hero-scroll-text">Scroll</span>
+    <div class="hero-scroll-line"></div>
   </button>
 </section>
 
 <!-- ══════════ IMAGE DIVIDER 1 — Ops Room ══════════ -->
-<div class="img-divider" style="--fade-color:#07111F;" aria-hidden="true">
+<div class="img-divider" id="divider-1" style="--fade-top:var(--ink-deep); --fade-bottom:var(--ink-deep);">
   <img src="1.png" alt="" loading="lazy" data-parallax>
-  <span class="img-divider-caption">Engineering · Ops · Intelligence</span>
+  <div class="img-divider-tag">"Being harder to detect matters more than turning tighter."<br><br>
+</div>
 </div>
 
 <!-- ══════════ MISSION ══════════ -->
 <section id="mission">
-  <div class="container">
-    <div class="two-col" style="padding: clamp(80px,10vw,160px) 0">
+  <div class="container sec-pad">
+    <div class="two-col">
       <div>
-        <div class="section-label reveal">
-          <span class="bar"></span>
-          <span class="eyebrow"></span>
+        <div class="section-eyebrow reveal">
+          <div class="bar"></div>
+          <span class="label">Mission</span>
         </div>
-        <h2 class="section-title reveal" style="transition-delay:80ms">
+        <h2 class="sh reveal" style="transition-delay:80ms">
           Why We<br><span class="dim">Exist.</span>
         </h2>
       </div>
-      <div style="padding-top:16px">
-        <div class="body-text reveal" style="transition-delay:120ms">
+      <div style="padding-top:8px">
+        <div class="body-prose reveal" style="transition-delay:140ms">
           <p>India's security challenges are evolving faster than traditional approaches can keep up.</p>
-          <p>We believe that protecting the nation requires more than acquiring technology — it requires building it.</p>
+          <p>We believe that protecting the nation requires more than acquiring technology — <em>it requires building it.</em></p>
           <p>Ashvadha was founded from a simple conviction: the people who protect India deserve technologies built with the same commitment, urgency, and purpose with which they serve.</p>
           <p>Our mission is to develop indigenous autonomous systems that strengthen national capability, augment human effectiveness, and contribute to India's long-term strategic independence.</p>
-          <p class="highlight">We are not building for today's challenges alone. We are building for the challenges that will define the decades ahead.</p>
+        </div>
+        <div class="mission-quote reveal" style="transition-delay:280ms">
+          <p>We are not building for today's challenges alone. We are building for the challenges that will define the decades ahead.</p>
         </div>
       </div>
     </div>
@@ -722,71 +1119,72 @@
 </section>
 
 <!-- ══════════ IMAGE DIVIDER 2 — Drone Network ══════════ -->
-<div class="img-divider" style="--fade-color:#06101C;" aria-hidden="true">
+<div class="img-divider" style="--fade-top:var(--ink-deep); --fade-bottom:var(--ink-alt);">
   <img src="2.png" alt="" loading="lazy" data-parallax>
-  <span class="img-divider-caption">Multi-Domain · Networked · Autonomous</span>
+  <div class="img-divider-tag">Multi-Domain · Networked · Autonomous</div>
 </div>
 
 <!-- ══════════ APPROACH ══════════ -->
 <section id="approach">
-  <div class="grid-overlay" style="opacity:0.5"></div>
-  <div class="container" style="position:relative">
-    <div style="padding: clamp(80px,10vw,160px) 0">
-      <div class="section-label reveal">
-        <span class="bar"></span>
-        <span class="eyebrow"></span>
-      </div>
-      <h2 class="section-title reveal" style="transition-delay:80ms;max-width:820px">How We Think.</h2>
-      <p class="reveal" style="transition-delay:160ms;margin-top:24px;max-width:640px;font-size:15px;line-height:1.8;color:rgba(255,255,255,0.55);font-weight:300">
-        Three principles shape how we build, decide, and move.
-      </p>
+  <div class="container sec-pad">
+    <div class="section-eyebrow reveal">
+      <div class="bar"></div>
+      <span class="label">Approach</span>
+    </div>
+    <h2 class="sh reveal" style="transition-delay:80ms; max-width:760px">How We Think.</h2>
+    <p class="reveal" style="transition-delay:160ms; margin-top:20px; max-width:580px; font-size:14px; line-height:1.8; color:rgba(255,255,255,0.45); font-weight:300; font-family:var(--body)">
+      Three principles shape how we build, decide, and move.
+    </p>
 
-      <div class="approach-cards">
-        <div class="approach-card corner-frame reveal" style="transition-delay:0ms">
-          <div class="approach-card-n">01</div>
-          <h3>Indigenous Innovation</h3>
-          <p>The most important challenges should be solved by those closest to them. We believe India must build critical technologies for itself rather than depend on external solutions.</p>
-        </div>
-        <div class="approach-card corner-frame reveal" style="transition-delay:120ms">
-          <div class="approach-card-n">02</div>
-          <h3>Fast, Unconventional Execution</h3>
-          <p>Breakthrough innovation rarely comes from conventional paths. We move quickly, learn continuously, challenge assumptions, and focus on building real capability instead of waiting for perfect conditions.</p>
-        </div>
-        <div class="approach-card corner-frame reveal" style="transition-delay:240ms">
-          <div class="approach-card-n">03</div>
-          <h3>Country First</h3>
-          <p>Every decision begins with impact. Our goal is to create technologies that strengthen India's security, preparedness, and long-term strategic advantage.</p>
-        </div>
+    <div class="approach-cards">
+      <div class="approach-card reveal" style="transition-delay:0ms">
+        <div class="card-num">01 / 03</div>
+        <h3>Indigenous Innovation</h3>
+        <p>The most important challenges should be solved by those closest to them. India must build critical technologies for itself — not depend on external solutions.</p>
+      </div>
+      <div class="approach-card reveal" style="transition-delay:140ms">
+        <div class="card-num">02 / 03</div>
+        <h3>Fast, Unconventional Execution</h3>
+        <p>Breakthrough innovation rarely comes from conventional paths. We move quickly, learn continuously, challenge assumptions, and build real capability instead of waiting for perfect conditions.</p>
+      </div>
+      <div class="approach-card reveal" style="transition-delay:280ms">
+        <div class="card-num">03 / 03</div>
+        <h3>Country First</h3>
+        <p>Every decision begins with impact. Our goal is to create technologies that strengthen India's security, preparedness, and long-term strategic advantage.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════ IMAGE DIVIDER 3 — Stealth Drone ══════════ -->
-<div class="img-divider" style="--fade-color:#07111F; height: clamp(320px, 45vw, 640px);" aria-hidden="true">
-  <img src="3.png" alt="" loading="lazy" data-parallax style="object-position: center 30%;">
-  <span class="img-divider-caption">Autonomous · Stealth · Precision</span>
+<div class="img-divider" style="--fade-top:var(--ink-alt); --fade-bottom:var(--ink-deep); height:clamp(320px,46vw,640px);">
+  <img src="3.png" alt="" loading="lazy" data-parallax style="object-position:center 28%;">
+  <div class="img-divider-tag">Autonomous · Stealth · Precision</div>
 </div>
 
 <!-- ══════════ ABOUT ══════════ -->
 <section id="about">
-  <div class="container">
-    <div class="two-col" style="padding: clamp(80px,10vw,160px) 0">
+  <div class="container sec-pad">
+    <div class="two-col">
       <div>
-        <div class="section-label reveal">
-          <span class="bar"></span>
-          <span class="eyebrow"></span>
+        <div class="section-eyebrow reveal">
+          <div class="bar"></div>
+          <span class="label">About</span>
         </div>
-        <h2 class="section-title reveal" style="transition-delay:80ms">
+        <h2 class="sh reveal" style="transition-delay:80ms">
           About<br><span class="dim">Ashvadha.</span>
         </h2>
+        <div class="about-badge reveal" style="transition-delay:200ms">
+          <div class="about-badge-dot"></div>
+          <span>Active · Breaking & Building</span>
+        </div>
       </div>
-      <div style="padding-top:16px">
-        <div class="body-text reveal" style="transition-delay:120ms">
+      <div style="padding-top:8px">
+        <div class="body-prose reveal" style="transition-delay:140ms">
           <p>Ashvadha was founded with a clear purpose: to help protect those who protect us.</p>
           <p>We are a mission-driven defence technology company focused on developing autonomous systems for the future of national security.</p>
           <p>Founded by a small team of builders, engineers, and researchers, Ashvadha exists to address critical capability gaps through indigenous innovation, long-term thinking, and relentless execution.</p>
-          <p class="highlight">We believe meaningful technology is not built by following trends. It is built by solving difficult problems that matter.</p>
+          <p><em>We believe meaningful technology is not built by following trends. It is built by solving difficult problems that matter.</em></p>
         </div>
       </div>
     </div>
@@ -794,109 +1192,111 @@
 </section>
 
 <!-- ══════════ IMAGE DIVIDER 4 — India from Space ══════════ -->
-<div class="img-divider" style="--fade-color:#06101C;" aria-hidden="true">
+<div class="img-divider" style="--fade-top:var(--ink-deep); --fade-bottom:var(--ink-alt);">
   <img src="4.png" alt="" loading="lazy" data-parallax>
-  <span class="img-divider-caption">India · Strategic Independence · National Capability</span>
+  <div class="img-divider-tag">India · Strategic Independence · National Capability</div>
 </div>
 
 <!-- ══════════ TEAM ══════════ -->
 <section id="team">
-  <div class="grid-overlay" style="opacity:0.4"></div>
-  <div class="container" style="position:relative">
-    <div style="padding: clamp(80px,10vw,160px) 0">
-      <div class="section-label reveal">
-        <span class="bar"></span>
-        <span class="eyebrow"></span>
-      </div>
-      <h2 class="section-title reveal" style="transition-delay:80px">Founding Team.</h2>
+  <div class="container sec-pad">
+    <div class="section-eyebrow reveal">
+      <div class="bar"></div>
+      <span class="label">Team</span>
+    </div>
+    <h2 class="sh reveal" style="transition-delay:80ms">Founding Team.</h2>
 
-      <div class="team-grid">
-        <div class="team-card corner-frame reveal" style="transition-delay:0ms">
-          <div class="team-card-top">
-            <div class="team-avatar"><img src="mananpfp.jpg" alt="Manan Purani" style="width:100%;height:100%;object-fit:cover;"></div>
-            <div class="bar"></div>
+    <div class="team-grid">
+      <div class="team-card reveal" style="transition-delay:0ms">
+        <div class="team-top">
+          <div class="team-avatar">
+            <img src="mananpfp.jpg" alt="Manan Purani" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="team-avatar-init" style="display:none">MP</div>
           </div>
-          <div>
-            <div class="team-name">Manan Purani</div>
-            <div class="team-role">Founder &amp; CEO</div>
-            <a href="mailto:mananpurani@ashvadha.in" class="team-email under-link">mananpurani@ashvadha.in</a>
-          </div>
+          <div class="team-top-line"></div>
         </div>
-        <div class="team-card corner-frame reveal" style="transition-delay:160ms">
-          <div class="team-card-top">
-            <div class="team-avatar"><img src="aryanpfp.jpeg" alt="Aryan Kamble" style="width:100%;height:100%;object-fit:cover;"></div>
-            <div class="bar"></div>
+        <div class="team-name">Manan Purani</div>
+        <div class="team-role">Founder &amp; CEO</div>
+        <a href="mailto:mananpurani@ashvadha.in" class="team-email">mananpurani@ashvadha.in</a>
+      </div>
+      <div class="team-card reveal" style="transition-delay:180ms">
+        <div class="team-top">
+          <div class="team-avatar">
+            <img src="aryanpfp.jpeg" alt="Aryan Kamble" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="team-avatar-init" style="display:none">AK</div>
           </div>
-          <div>
-            <div class="team-name">Aryan Kamble</div>
-            <div class="team-role">Co-Founder &amp; CTO</div>
-            <a href="mailto:aryankamble@ashvadha.in" class="team-email under-link">aryankamble@ashvadha.in</a>
-          </div>
+          <div class="team-top-line"></div>
         </div>
+        <div class="team-name">Aryan Kamble</div>
+        <div class="team-role">Co-Founder &amp; CTO</div>
+        <a href="mailto:aryankamble@ashvadha.in" class="team-email">aryankamble@ashvadha.in</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ IMAGE DIVIDER 5 — Mission Control Sunset ══════════ -->
-<div class="img-divider" style="--fade-color:#07111F; height: clamp(300px, 42vw, 600px);" aria-hidden="true">
+<!-- ══════════ IMAGE DIVIDER 5 — Mission Sunset ══════════ -->
+<div class="img-divider" style="--fade-top:var(--ink-alt); --fade-bottom:var(--ink-deep); height:clamp(300px,44vw,600px);">
   <img src="5.png" alt="" loading="lazy" data-parallax>
-  <span class="img-divider-caption">Mission · Purpose · Impact</span>
+  <div class="img-divider-tag">Mission · Purpose · Impact</div>
 </div>
 
 <!-- ══════════ JOIN ══════════ -->
 <section id="join">
-  <div class="container" style="position:relative">
-    <div class="join-glow-1"></div>
-    <div class="join-glow-2"></div>
-    <div class="join-inner" style="padding: clamp(80px,10vw,160px) 0">
-      <div class="join-label reveal">
-        <span class="bar"></span>
-        <span class="eyebrow"></span>
-        <span class="bar"></span>
+  <div class="container sec-pad">
+    <div class="join-inner">
+      <div class="join-glows">
+        <div class="join-glow-a"></div>
+        <div class="join-glow-b"></div>
       </div>
+
+      <div class="section-eyebrow reveal" style="justify-content:center">
+        <div class="bar"></div>
+        <span class="label">Join</span>
+        <div class="bar" style="background:linear-gradient(270deg,var(--saffron),transparent)"></div>
+      </div>
+
       <h2 class="join-title reveal" style="transition-delay:80ms">Join the Mission.</h2>
       <p class="join-body reveal" style="transition-delay:180ms">
         We are always looking to connect with builders, engineers, researchers,
         designers, and mission-driven individuals who want to contribute to
         meaningful technological challenges.
       </p>
-      <p class="join-body reveal" style="transition-delay:260ms;color:rgba(255,255,255,0.55)">
+      <p class="join-body reveal" style="transition-delay:260ms; color:rgba(255,255,255,0.4)">
         Whether you are interested in collaboration, partnerships, internships,
         research, or simply following our journey — we would love to hear from you.
       </p>
-      <div class="join-cta reveal" style="transition-delay:360ms">
+      <div class="reveal" style="transition-delay:360ms; margin-top:52px">
         <a href="#contact" class="btn-primary" onclick="smoothTo(event,'contact')">
-          Get In Touch
+          <span>Get In Touch</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
-      <div class="join-divider tricolor reveal" style="transition-delay:520ms"></div>
+      <div class="join-divider tricolor reveal" style="transition-delay:480ms"></div>
     </div>
   </div>
 </section>
 
 <!-- ══════════ CONTACT ══════════ -->
 <section id="contact">
-  <div class="grid-overlay" style="opacity:0.5"></div>
-  <div class="container" style="position:relative">
-    <div class="two-col" style="padding: clamp(80px,10vw,160px) 0">
+  <div class="container sec-pad">
+    <div class="two-col">
       <div>
-        <div class="section-label reveal">
-          <span class="bar"></span>
-          <span class="eyebrow"></span>
+        <div class="section-eyebrow reveal">
+          <div class="bar"></div>
+          <span class="label">Contact</span>
         </div>
-        <h2 class="section-title reveal" style="transition-delay:80ms;font-size:clamp(32px,4.5vw,60px)">
+        <h2 class="sh reveal" style="transition-delay:80ms">
           Get in<br><span class="dim">Touch.</span>
         </h2>
-        <p class="reveal" style="transition-delay:160ms;margin-top:32px;font-size:15px;line-height:1.85;color:rgba(255,255,255,0.55);max-width:420px;font-weight:300">
-          For collaborations, partnerships, research, internships, or to simply follow our journey — write to us directly.
+        <p class="reveal" style="transition-delay:180ms; margin-top:28px; font-size:14px; line-height:1.85; color:rgba(255,255,255,0.45); max-width:380px; font-weight:300">
+          For collaborations, partnerships, research, internships, or to follow our journey — write to us directly.
         </p>
       </div>
-      <div class="reveal" style="transition-delay:120ms;align-self:center">
-        <div class="contact-entries">
-          <a href="mailto:mananpurani@ashvadha.in" class="contact-entry">
-            <div class="contact-entry-left">
+      <div class="reveal" style="transition-delay:120ms; align-self:center">
+        <div class="contact-list">
+          <a href="mailto:mananpurani@ashvadha.in" class="contact-row">
+            <div class="contact-left">
               <div class="contact-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               </div>
@@ -909,8 +1309,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             </div>
           </a>
-          <a href="mailto:aryankamble@ashvadha.in" class="contact-entry">
-            <div class="contact-entry-left">
+          <a href="mailto:aryankamble@ashvadha.in" class="contact-row">
+            <div class="contact-left">
               <div class="contact-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               </div>
@@ -923,8 +1323,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             </div>
           </a>
-          <a href="https://www.linkedin.com/company/ashvadha" target="_blank" rel="noopener noreferrer" class="contact-entry">
-            <div class="contact-entry-left">
+          <a href="https://www.linkedin.com/company/ashvadha" target="_blank" rel="noopener noreferrer" class="contact-row">
+            <div class="contact-left">
               <div class="contact-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               </div>
@@ -948,113 +1348,138 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="ashvadhalogo.jpeg" alt="Ashvadha" style="height:36px;width:36px;object-fit:contain;border-radius:3px;">  
+        <img src="ashvadhalogo.jpeg" alt="Ashvadha">
         <div>
           <div class="footer-brand-name">ASHVADHA</div>
-          <div class="footer-brand-tagline">Indigenous · Autonomous · Indian</div>
+          <div class="footer-brand-tag">Indigenous · Autonomous · Indian</div>
         </div>
       </div>
-      <div class="footer-divider">
+      <div class="footer-center">
         <div class="bar"></div>
         <div class="tri tricolor"></div>
         <div class="bar"></div>
       </div>
-      <div class="footer-copy">© <span id="year"></span> Ashvadha · India</div>
+      <div class="footer-copy">© <span id="yr"></span> Ashvadha · India</div>
     </div>
   </div>
 </footer>
 
 <!-- ══════════ SCRIPTS ══════════ -->
 <script>
-  // Year
-  document.getElementById('year').textContent = new Date().getFullYear();
+  /* ── Year ── */
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Smooth scroll
+  /* ── Loader ── */
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    const pct    = document.getElementById('loader-pct');
+    let n = 0;
+    const iv = setInterval(() => {
+      n = Math.min(n + Math.floor(Math.random() * 18) + 8, 100);
+      pct.textContent = `SYS ${String(n).padStart(3,'0')} / 100`;
+      if (n >= 100) {
+        clearInterval(iv);
+        pct.textContent = 'SYSTEMS READY';
+        setTimeout(() => loader.classList.add('hidden'), 400);
+      }
+    }, 60);
+  });
+
+  /* ── Smooth scroll ── */
   function smoothTo(e, id) {
     if (e) e.preventDefault();
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
-  // Mobile menu
-  function toggleMenu() {
-    document.getElementById('nav-mobile').classList.toggle('open');
-  }
-  function closeMenu() {
-    document.getElementById('nav-mobile').classList.remove('open');
+  /* ── Mobile nav ── */
+  const ham      = document.getElementById('nav-ham');
+  const mobileNav = document.getElementById('nav-mobile');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+  function mobileClose() {
+    ham.classList.remove('open');
+    mobileNav.classList.remove('open');
   }
 
-  // Nav scroll state
-  (function() {
-    const nav = document.getElementById('site-nav');
-    function onScroll() {
-      nav.classList.toggle('scrolled', window.scrollY > 12);
-    }
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  })();
+  /* ── Nav scroll state ── */
+  const nav = document.getElementById('site-nav');
+  function updateNav() { nav.classList.toggle('scrolled', window.scrollY > 10); }
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive:true });
 
-  // Particles
-  (function() {
-    const container = document.getElementById('particles');
-    if (!container) return;
-    const count = 42;
-    for (let i = 0; i < count; i++) {
+  /* ── Particles ── */
+  (function(){
+    const c = document.getElementById('particles');
+    if (!c) return;
+    for (let i = 0; i < 48; i++) {
       const s = document.createElement('span');
-      const left = Math.random() * 100;
-      const delay = Math.random() * 8;
-      const duration = 8 + Math.random() * 10;
-      const rand = Math.random();
-      const size = rand < 0.18 ? 3 : rand < 0.5 ? 2 : 1;
+      const r = Math.random();
+      const sz = r < 0.2 ? 3 : r < 0.55 ? 2 : 1;
       s.style.cssText = `
-        left:${left}%;bottom:-10px;
-        width:${size}px;height:${size}px;
-        animation-delay:${delay}s;
-        animation-duration:${duration}s;
+        left:${Math.random()*100}%;
+        bottom:${-10 + Math.random()*20}px;
+        width:${sz}px; height:${sz}px;
+        animation-delay:${Math.random()*10}s;
+        animation-duration:${10 + Math.random()*14}s;
+        box-shadow: 0 0 ${sz*2}px rgba(255,255,255,0.4);
       `;
-      container.appendChild(s);
+      c.appendChild(s);
     }
   })();
 
-  // Reveal on scroll
-  (function() {
-    const els = document.querySelectorAll('.reveal');
+  /* ── Typed word animation ── */
+  (function(){
+    const el = document.getElementById('typed-word');
+    if (!el) return;
+    const words = ['Designed', 'Built', 'Engineered', 'Forged'];
+    let wi = 0, ci = 0, deleting = false;
+    function tick() {
+      const word = words[wi];
+      if (!deleting) {
+        el.textContent = word.slice(0, ++ci);
+        if (ci === word.length) { deleting = true; setTimeout(tick, 1800); return; }
+      } else {
+        el.textContent = word.slice(0, --ci);
+        if (ci === 0) { deleting = false; wi = (wi+1) % words.length; }
+      }
+      setTimeout(tick, deleting ? 60 : 100);
+    }
+    setTimeout(tick, 1600);
+  })();
+
+  /* ── Scroll reveal ── */
+  (function(){
+    const els = document.querySelectorAll('.reveal, .reveal-left');
     if (!els.length) return;
-    const io = new IntersectionObserver(
-      entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.1 });
     els.forEach(el => io.observe(el));
   })();
 
-  // Subtle parallax on image dividers
-  (function() {
+  /* ── Parallax on image dividers ── */
+  (function(){
+    if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
     const imgs = document.querySelectorAll('[data-parallax]');
-    if (!imgs.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    function onScroll() {
+    if (!imgs.length) return;
+    function update() {
+      const vh = window.innerHeight;
       imgs.forEach(img => {
         const rect = img.parentElement.getBoundingClientRect();
-        const vh = window.innerHeight;
-        // Only animate when in view
         if (rect.bottom < 0 || rect.top > vh) return;
-        const progress = (vh - rect.top) / (vh + rect.height); // 0 to 1
-        const shift = (progress - 0.5) * 60; // ±30px
+        const progress = (vh - rect.top) / (vh + rect.height);
+        const shift = (progress - 0.5) * 80;
         img.style.transform = `translateY(${shift}px)`;
       });
     }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    window.addEventListener('scroll', update, { passive:true });
+    update();
   })();
 </script>
-
 </body>
 </html>
