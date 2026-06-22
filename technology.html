@@ -14,6 +14,11 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#040D18">
 
+<!-- Favicon — inline SVG as data URI so it works without a separate file -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23040D18'/%3E%3Cpolygon points='16,2 29,9 29,23 16,30 3,23 3,9' fill='none' stroke='%23e8700a' stroke-width='1.5'/%3E%3Cpolygon points='16,7 24,11.5 24,20.5 16,25 8,20.5 8,11.5' fill='%23e8700a' opacity='0.12'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23e8700a'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="https://www.ashvadha.in/ashvadhalogo.png">
+<link rel="apple-touch-icon" href="https://www.ashvadha.in/ashvadhalogo.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
@@ -122,7 +127,20 @@ h1 {
   color: var(--text-bright); margin-bottom: 22px;
   opacity: 0; animation: fadeUp 0.9s ease 0.3s forwards;
 }
-h1 em { font-style: normal; font-weight: 600; }
+h1 em { font-style: normal; font-weight: 600; color: var(--saffron); }
+
+/* Orange accent on system chips */
+.system-chip:hover {
+  border-color: rgba(232,112,10,0.3);
+  color: var(--saffron);
+}
+/* Orange glow under divider dot */
+.status-dot { box-shadow: 0 0 6px rgba(232,112,10,0.4); }
+
+/* Orange left accent on eyebrow lines */
+.eyebrow::before, .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(232,112,10,0.3));
+}
 
 /* Body */
 .body-text {
@@ -208,17 +226,19 @@ footer {
 <body>
 
 <nav>
-  <a href="/" class="nav-logo">
+  <a href="https://www.ashvadha.in" class="nav-logo">
     <img src="https://www.ashvadha.in/ashvadhalogo.png" alt="Ashvadha">
     <span class="nav-logo-text">ASHVADHA</span>
   </a>
   <div class="nav-links">
-    <a href="/#mission" class="nav-link">Mission</a>
-    <a href="/#about" class="nav-link">About</a>
+    <a href="https://www.ashvadha.in/#mission" class="nav-link">Mission</a>
+    <a href="https://www.ashvadha.in/#approach" class="nav-link">Approach</a>
+    <a href="https://www.ashvadha.in/#about" class="nav-link">About</a>
+    <a href="https://www.ashvadha.in/#team" class="nav-link">Team</a>
+    <a href="https://www.ashvadha.in/#contact" class="nav-link">Contact</a>
     <a href="/technology" class="nav-link active">Technology</a>
-    <a href="/#team" class="nav-link">Team</a>
   </div>
-  <a href="/#contact" class="nav-cta">Get In Touch</a>
+  <a href="https://www.ashvadha.in/#contact" class="nav-cta">Get In Touch</a>
 </nav>
 
 <main class="page">
@@ -230,7 +250,7 @@ footer {
       <img src="https://www.ashvadha.in/ashvadhalogo.png" alt="Ashvadha">
     </div>
 
-    <h1>We are <em>building</em>.<br>Details to follow.</h1>
+    <h1>We are <em>learning</em><br>and <em>building</em>.<br><span style="font-size:0.6em;font-weight:300;color:var(--text);letter-spacing:0;">Details to follow.</span></h1>
 
     <p class="body-text">
       Ashvadha is developing a family of indigenous autonomous systems
@@ -238,7 +258,6 @@ footer {
       and demonstration timelines will be shared as development progresses.
     </p>
 
-    
 
     <div class="divider"></div>
 
@@ -247,7 +266,7 @@ footer {
       ACTIVE DEVELOPMENT &nbsp;·&nbsp; INDIA &nbsp;·&nbsp; 2025
     </div>
 
-    <a href="/" class="back-link">Return to main site</a>
+    <a href="https://www.ashvadha.in" class="back-link">Return to main site</a>
 
   </div>
 </main>
