@@ -20,64 +20,148 @@
 <link rel="apple-touch-icon" href="https://www.ashvadha.in/ashvadhalogo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #040D18;
-  --border: rgba(255,255,255,0.06);
-  --text: #8a95a0;
-  --text-bright: #dde2e8;
-  --text-dim: #3a4550;
-  --saffron: #e8700a;
-  --mono: 'Share Tech Mono', monospace;
-  --sans: 'Inter', sans-serif;
+  --ink:         #040D18;
+  --ink-alt:     #030B14;
+  --ink-deep:    #020810;
+  --line:        rgba(255,255,255,0.07);
+  --text:        #F0F4FA;
+  --text-dim:    rgba(240,244,250,0.60);
+  --text-mute:   rgba(240,244,250,0.35);
+  --saffron:     #FF9933;
+  --saffron-dim: rgba(255,153,51,0.18);
+  --green-ind:   #138808;
+  --mono:        "Share Tech Mono", monospace;
+  --display:     "Orbitron", sans-serif;
+  --body:        "Montserrat", sans-serif;
+  /* page-specific */
+  --text-accent: #FF9933;
+  --border:      rgba(255,255,255,0.06);
 }
 
 html, body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
+  background: var(--ink-deep);
+  color: var(--text-dim);
+  font-family: var(--body);
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px; height: 64px;
-  background: rgba(4,13,24,0.92);
-  border-bottom: 1px solid var(--border);
+/* ── TRICOLOR ── */
+.tricolor {
+  background: linear-gradient(90deg,
+    #FF9933 0% 33.33%,
+    rgba(240,244,250,0.9) 33.33% 66.66%,
+    #138808 66.66% 100%
+  );
+}
+
+/* ── NAV — exact copy of index.html ── */
+#site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  transition: background 500ms, border-color 500ms, backdrop-filter 500ms;
+  border-bottom: 1px solid transparent;
+}
+#site-nav.scrolled {
+  background: rgba(4,12,22,0.92);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(255,255,255,0.06);
+}
+.nav-tricolor {
+  height: 2px; opacity: 0; transition: opacity 500ms;
+}
+#site-nav.scrolled .nav-tricolor { opacity: 1; }
+
+/* Always-visible top bar (3px, fixed) */
+.top-tricolor {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 999;
+}
+
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; max-width: 1360px;
+  margin: 0 auto; padding: 0 clamp(1.25rem,5vw,4rem);
 }
 .nav-logo {
   display: flex; align-items: center; gap: 12px; text-decoration: none;
 }
-.nav-logo img { width: 26px; height: 26px; object-fit: contain; opacity: 0.85; }
+.nav-logo img { height: 34px; width: 34px; object-fit: contain; border-radius: 3px; }
 .nav-logo-text {
-  font-family: var(--sans); font-weight: 600; font-size: 14px;
-  color: var(--text-bright); letter-spacing: 3px;
+  font-family: var(--display); font-size: 14px; font-weight: 700;
+  letter-spacing: 0.3em; color: rgba(255,255,255,0.92);
+  transition: color 200ms;
 }
-.nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-link {
-  font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
-  color: var(--text); text-decoration: none;
-  transition: color 0.2s; text-transform: uppercase;
+.nav-logo:hover .nav-logo-text { color: #fff; }
+
+.nav-links { display: flex; align-items: center; gap: 40px; }
+.nav-links a {
+  font-family: var(--display); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  position: relative; transition: color 200ms;
 }
-.nav-link:hover { color: var(--text-bright); }
-.nav-link.active { color: var(--text-bright); }
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; bottom: -4px;
+  width: 100%; height: 1px; background: var(--saffron);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 300ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active { color: rgba(255,153,51,0.9); }
+.nav-links a.active::after { transform: scaleX(1); }
+
 .nav-cta {
-  font-size: 11px; font-weight: 500; letter-spacing: 1px;
-  color: var(--text-bright); text-decoration: none;
-  padding: 7px 18px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 3px; transition: all 0.2s; text-transform: uppercase;
+  font-family: var(--display); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-deep); background: var(--text);
+  border: 1px solid var(--text); padding: 10px 20px;
+  text-decoration: none;
+  transition: background 200ms, color 200ms, border-color 200ms;
 }
-.nav-cta:hover { border-color: rgba(255,255,255,0.22); }
+.nav-cta:hover { background: transparent; color: var(--text); }
+
+.nav-ham {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 6px;
+}
+.nav-ham span {
+  display: block; height: 1px; background: rgba(255,255,255,0.8);
+  transition: width 200ms, transform 300ms, opacity 200ms;
+}
+.nav-ham span:nth-child(1) { width: 22px; }
+.nav-ham span:nth-child(2) { width: 22px; }
+.nav-ham span:nth-child(3) { width: 14px; margin-left: auto; }
+.nav-ham.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 22px; }
+.nav-ham.open span:nth-child(2) { opacity: 0; }
+.nav-ham.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 22px; }
+
+.nav-mobile {
+  display: none; background: rgba(4,12,22,0.98);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.nav-mobile.open { display: block; }
+.nav-mobile-inner {
+  padding: 32px clamp(1.25rem,5vw,4rem);
+  display: flex; flex-direction: column; gap: 24px;
+}
+.nav-mobile a {
+  font-family: var(--display); font-size: 12px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); text-decoration: none;
+  transition: color 200ms;
+}
+.nav-mobile a:hover { color: #fff; }
+.nav-mobile a.active { color: var(--saffron); }
 
 /* PAGE */
 .page {
@@ -225,7 +309,10 @@ footer {
 </head>
 <body>
 
-<nav>
+<!-- Tricolour bar — matches main site -->
+<div style="position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FF9933 33.33%,#FFFFFF 33.33%,#FFFFFF 66.66%,#138808 66.66%);z-index:999;"></div>
+
+<nav style="top:3px;">
   <a href="https://www.ashvadha.in" class="nav-logo">
     <img src="https://www.ashvadha.in/ashvadhalogo.png" alt="Ashvadha">
     <span class="nav-logo-text">ASHVADHA</span>
@@ -258,7 +345,7 @@ footer {
       and demonstration timelines will be shared as development progresses.
     </p>
 
-
+  
     <div class="divider"></div>
 
     <div class="status-line">
