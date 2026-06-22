@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technology · Ashvadha</title>
+<meta name="description" content="Ashvadha is developing indigenous autonomous systems for India's defence. Details to follow.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ashvadha.in/technology">
+<meta property="og:title" content="Technology · Ashvadha">
+<meta property="og:description" content="Building autonomous systems for those who protect India. Details to follow.">
+<meta property="og:url" content="https://ashvadha.in/technology">
+<meta property="og:image" content="https://ashvadha.in/ashvadhalogo.jpeg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#040D18">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #040D18;
+  --border: rgba(255,255,255,0.06);
+  --text: #8a95a0;
+  --text-bright: #dde2e8;
+  --text-dim: #3a4550;
+  --saffron: #e8700a;
+  --mono: 'Share Tech Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  background: rgba(4,13,24,0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
+}
+.nav-logo img { width: 26px; height: 26px; object-fit: contain; opacity: 0.85; }
+.nav-logo-text {
+  font-family: var(--sans); font-weight: 600; font-size: 14px;
+  color: var(--text-bright); letter-spacing: 3px;
+}
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-link {
+  font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
+  color: var(--text); text-decoration: none;
+  transition: color 0.2s; text-transform: uppercase;
+}
+.nav-link:hover { color: var(--text-bright); }
+.nav-link.active { color: var(--text-bright); }
+.nav-cta {
+  font-size: 11px; font-weight: 500; letter-spacing: 1px;
+  color: var(--text-bright); text-decoration: none;
+  padding: 7px 18px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 3px; transition: all 0.2s; text-transform: uppercase;
+}
+.nav-cta:hover { border-color: rgba(255,255,255,0.22); }
+
+/* PAGE */
+.page {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 24px 80px;
+  position: relative;
+}
+.page::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(14,28,52,0.55) 0%, transparent 100%);
+  pointer-events: none; z-index: 0;
+}
+
+.content {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  max-width: 580px;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 4px;
+  color: var(--text-dim); text-transform: uppercase;
+  margin-bottom: 44px;
+  display: flex; align-items: center; gap: 14px;
+}
+.eyebrow::before, .eyebrow::after {
+  content: ''; display: block;
+  width: 28px; height: 1px; background: var(--border);
+}
+
+/* Logo */
+.logo-lockup {
+  margin-bottom: 48px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.15s forwards;
+}
+.logo-lockup img { width: 52px; height: 52px; object-fit: contain; opacity: 0.65; }
+
+/* Headline */
+h1 {
+  font-size: clamp(30px, 5.5vw, 52px);
+  font-weight: 300; line-height: 1.2; letter-spacing: -0.3px;
+  color: var(--text-bright); margin-bottom: 22px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.3s forwards;
+}
+h1 em { font-style: normal; font-weight: 600; }
+
+/* Body */
+.body-text {
+  font-size: 15px; line-height: 1.85; font-weight: 300;
+  color: var(--text); max-width: 440px; margin-bottom: 60px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.45s forwards;
+}
+
+/* System names */
+.systems {
+  display: flex; gap: 10px; margin-bottom: 60px;
+  flex-wrap: wrap; justify-content: center;
+  opacity: 0; animation: fadeUp 0.9s ease 0.55s forwards;
+}
+.system-chip {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+  color: var(--text-dim); padding: 6px 14px;
+  border: 1px solid var(--border); border-radius: 2px;
+  text-transform: uppercase; position: relative; overflow: hidden;
+}
+.system-chip::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.025), transparent);
+  animation: shimmer 4s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Divider */
+.divider {
+  width: 1px; height: 44px; background: var(--border);
+  margin-bottom: 44px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.65s forwards;
+}
+
+/* Status */
+.status-line {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2.5px;
+  color: var(--text-dim); margin-bottom: 52px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.72s forwards;
+}
+.status-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--saffron); opacity: 0.6;
+  animation: pulse 2.8s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.15; } }
+
+/* Back */
+.back-link {
+  font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
+  color: var(--text-dim); text-decoration: none;
+  text-transform: uppercase; transition: color 0.2s;
+  opacity: 0; animation: fadeUp 0.9s ease 0.8s forwards;
+}
+.back-link:hover { color: var(--text-bright); }
+.back-link::before { content: '\2190  '; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Footer */
+footer {
+  position: relative; z-index: 1;
+  text-align: center; padding: 24px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+  color: var(--text-dim); border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .systems { gap: 8px; }
+  h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="https://www.ashvadha.in/ashvadhalogo.png" alt="Ashvadha">
+    <span class="nav-logo-text">ASHVADHA</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#mission" class="nav-link">Mission</a>
+    <a href="/#about" class="nav-link">About</a>
+    <a href="/technology" class="nav-link active">Technology</a>
+    <a href="/#team" class="nav-link">Team</a>
+  </div>
+  <a href="/#contact" class="nav-cta">Get In Touch</a>
+</nav>
+
+<main class="page">
+  <div class="content">
+
+    <div class="eyebrow">Technology</div>
+
+    <div class="logo-lockup">
+      <img src="https://www.ashvadha.in/ashvadhalogo.png" alt="Ashvadha">
+    </div>
+
+    <h1>We are <em>building</em>.<br>Details to follow.</h1>
+
+    <p class="body-text">
+      Ashvadha is developing a family of indigenous autonomous systems
+      for India's defence. Platform specifications, capability details,
+      and demonstration timelines will be shared as development progresses.
+    </p>
+
+    
+
+    <div class="divider"></div>
+
+    <div class="status-line">
+      <div class="status-dot"></div>
+      ACTIVE DEVELOPMENT &nbsp;·&nbsp; INDIA &nbsp;·&nbsp; 2025
+    </div>
+
+    <a href="/" class="back-link">Return to main site</a>
+
+  </div>
+</main>
+
+<footer>
+  © ASHVADHA &nbsp;·&nbsp; INDIA &nbsp;·&nbsp; AUTONOMOUS SYSTEMS FOR NATIONAL DEFENCE
+</footer>
+
+</body>
+</html>
