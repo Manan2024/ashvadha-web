@@ -19,11 +19,12 @@
   if (!track || !stage || !finalEl || !finalLn || !buildEl || !buildRail) return;
 
   /* Scroll bands (0..1 across the pinned stage)
-     Lead-in almost immediately, then amber line, then rail. */
-  var LEAD  = [0.02, 0.14];   /* framing lines appear almost immediately */
-  var FINAL = [0.18, 0.36];   /* "See you down there." */
-  var BUILD = [0.28, 0.48];   /* rail follows the final line */
-  var PART  = [0.08, 0.48];   /* faint dust after lead-in */
+     Lead-in is visible as soon as the section is entered (nav click friendly).
+     Amber line + rail come on further scroll. */
+  var LEAD  = [0.00, 0.08];   /* framing lines visible from the start */
+  var FINAL = [0.16, 0.34];   /* "See you down there." */
+  var BUILD = [0.26, 0.46];   /* rail follows the final line */
+  var PART  = [0.06, 0.46];   /* faint dust after lead-in */
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function band(p, a, b) { return clamp((p - a) / ((b - a) || 1e-6), 0, 1); }
@@ -153,25 +154,23 @@
   }
 
   function paint(p, time, dt) {
-    /* Container stays visible once lead starts so children can stagger */
-    var la = band(p, LEAD[0], LEAD[1]);
+    /* Lead-in is always visible while the section is on screen (nav-click friendly).
+       "See you down there." + rail fade in on further scroll. */
     var fa = band(p, FINAL[0], FINAL[1]);
-    var container = Math.max(la, fa);
-    var ce = eOutC(container);
-    finalEl.style.opacity = smooth(container).toFixed(3);
-    finalEl.style.transform = 'translate3d(0,' + ((1 - ce) * 18).toFixed(2) + 'px,0)';
+    var ba = band(p, BUILD[0], BUILD[1]);
+
+    finalEl.style.opacity = '1';
+    finalEl.style.transform = 'translate3d(0,0,0)';
 
     if (leadEl) {
-      var le = eOutC(la);
-      leadEl.style.opacity = smooth(la).toFixed(3);
-      leadEl.style.transform = 'translate3d(0,' + ((1 - le) * 14).toFixed(2) + 'px,0)';
+      leadEl.style.opacity = '1';
+      leadEl.style.transform = 'translate3d(0,0,0)';
     }
 
     var fe = eOutC(fa);
     finalLn.style.opacity = smooth(fa).toFixed(3);
-    finalLn.style.transform = 'translate3d(0,' + ((1 - fe) * 12).toFixed(2) + 'px,0) rotateX(' + ((1 - fe) * 12).toFixed(2) + 'deg)';
+    finalLn.style.transform = 'translate3d(0,' + ((1 - fe) * 14).toFixed(2) + 'px,0) rotateX(' + ((1 - fe) * 10).toFixed(2) + 'deg)';
 
-    var ba = band(p, BUILD[0], BUILD[1]);
     buildEl.style.opacity = smooth(ba).toFixed(3);
     if (ba > 0.001) paintBuild(time);
 

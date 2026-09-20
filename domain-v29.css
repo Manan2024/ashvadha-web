@@ -15,7 +15,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.dx-track { position: relative; height: 140vh; }
+.dx-track { position: relative; height: 130vh; }
 
 .dx-stage {
   position: sticky;
@@ -46,7 +46,7 @@
 .dx-final {
   position: absolute;
   inset: 0;
-  opacity: 0;
+  opacity: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +57,7 @@
   will-change: transform, opacity;
 }
 
-/* Framing lead-in — quieter, arrives first on scroll */
+/* Framing lead-in — visible as soon as the section is on screen */
 .dx-lead {
   margin: 0;
   max-width: 36rem;
@@ -68,7 +68,7 @@
   line-height: 1.55;
   letter-spacing: 0.01em;
   color: rgba(180, 196, 214, 0.78);
-  opacity: 0;
+  opacity: 1;
   will-change: transform, opacity;
 }
 
@@ -197,7 +197,7 @@
 /* ---------- Mobile ---------- */
 
 @media (max-width: 760px) {
-  .dx-track { height: 135vh; }
+  .dx-track { height: 125vh; }
   .dx-build { width: min(22rem, 84vw); }
   .dx-build__rail { gap: 1.5px; }
   .dx-lead { font-size: clamp(0.9rem, 3.6vw, 1.05rem); max-width: 22rem; }
