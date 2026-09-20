@@ -1,0 +1,205 @@
+/* ============================================================
+   SEE YOU DOWN THERE
+   A black stage that follows SAGA. The line and the build rail
+   arrive on scroll.
+   ============================================================ */
+
+.dx {
+  --bg:    #02040a;
+  --amber: #ff9a33;
+
+  position: relative;
+  background: var(--bg);
+  color: #e8edf7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dx-track { position: relative; height: 140vh; }
+
+.dx-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+}
+@supports (height: 100svh) {
+  .dx-stage { height: 100svh; }
+}
+
+/* ---------- Faint dust (arrives after the line) ---------- */
+
+.dx-dust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dx:is(.is-static, .no-js) .dx-dust { display: none; }
+
+/* ---------- Final line + build rail ---------- */
+
+.dx-final {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.8rem, 4.5vh, 3.2rem);
+  padding: 0 6vw;
+  perspective: 900px;
+  will-change: transform, opacity;
+}
+
+/* Framing lead-in — quieter, arrives first on scroll */
+.dx-lead {
+  margin: 0;
+  max-width: 36rem;
+  text-align: center;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.85vw, 1.2rem);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: rgba(180, 196, 214, 0.78);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.dx-lead__a,
+.dx-lead__b {
+  display: block;
+}
+
+.dx-lead__b {
+  margin-top: 0.35em;
+  color: rgba(200, 212, 228, 0.92);
+}
+
+.dx-final__line {
+  margin: 0;
+  font-family: "Electrolize", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.7rem, 4.6vw, 3.6rem);
+  line-height: 1.14;
+  letter-spacing: 0.015em;
+  color: var(--amber);
+  opacity: 0;
+  will-change: transform, opacity;
+  text-align: center;
+  text-shadow:
+    0 0 30px rgba(255, 154, 51, 0.35),
+    0 0 80px rgba(255, 154, 51, 0.18);
+  transform-style: preserve-3d;
+}
+
+.dx-dot { color: var(--amber); }
+
+/* Thin rail of hairline segments with two travelling light peaks:
+   reads as an ongoing process that never completes. */
+.dx-build {
+  position: relative;
+  width: min(28rem, 78vw);
+  display: flex;
+  align-items: center;
+  opacity: 0;
+}
+
+.dx-build::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 14px;
+  transform: translateY(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 154, 51, 0.10) 0%, rgba(255, 154, 51, 0) 70%);
+  animation: dxHaze 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes dxHaze {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+.dx-build__rail {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  width: 100%;
+  height: 2px;
+}
+
+.dx-build__rail i {
+  display: block;
+  flex: 1 1 0;
+  height: 1px;
+  border-radius: 1px;
+  background: var(--amber);
+  opacity: 0.07;
+  will-change: opacity, box-shadow;
+}
+
+.dx-build__rail::before,
+.dx-build__rail::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--amber);
+  transform: translateY(-50%);
+  opacity: 0.55;
+  box-shadow: 0 0 8px rgba(255, 154, 51, 0.55);
+}
+.dx-build__rail::before { left: -8px; }
+.dx-build__rail::after  { right: -8px; }
+
+/* ---------- Static fallback (reduced motion / no JS) ---------- */
+
+.dx:is(.is-static, .no-js) .dx-track { height: auto; }
+
+.dx:is(.is-static, .no-js) .dx-stage {
+  position: relative;
+  height: auto;
+  min-height: 100svh;
+  overflow: visible;
+}
+
+.dx:is(.is-static, .no-js) .dx-final {
+  position: relative;
+  inset: auto;
+  min-height: 100svh;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.dx:is(.is-static, .no-js) .dx-lead,
+.dx:is(.is-static, .no-js) .dx-final__line {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.dx:is(.is-static, .no-js) .dx-build { opacity: 1 !important; }
+.dx:is(.is-static, .no-js) .dx-build__rail i { opacity: 0.14; }
+.dx:is(.is-static, .no-js) .dx-build::before { animation: none; }
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 760px) {
+  .dx-track { height: 135vh; }
+  .dx-build { width: min(22rem, 84vw); }
+  .dx-build__rail { gap: 1.5px; }
+  .dx-lead { font-size: clamp(0.9rem, 3.6vw, 1.05rem); max-width: 22rem; }
+  .dx-final { gap: clamp(1.5rem, 5vh, 2.4rem); }
+}

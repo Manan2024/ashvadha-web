@@ -1,0 +1,132 @@
+.saga-v29 {
+  --bg:          #070a12;
+  --accent:      #ff9a33;
+  --accent-soft: #ffb060;
+  --text:        #e6ecf5;
+  --text-dim:    #8a94a8;
+
+  --font-display: 'Electrolize', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+
+  --saga-v29-track-height: 440vh;
+}
+
+* { box-sizing: border-box; }
+
+.saga-v29 {
+  position: relative;
+  width: 100%;
+  isolation: isolate;
+}
+
+.saga-v29__track {
+  position: relative;
+  height: var(--saga-v29-track-height);
+}
+
+.saga-v29__sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    #0b1220 0%,
+    #070a12 55%,
+    #04060b 100%
+  );
+}
+
+.saga-v29__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.saga-v29__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.saga-v29__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 42%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.saga-v29__brand {
+  position: absolute;
+  z-index: 5;
+  top: calc(var(--nav-h, 3.5rem) + clamp(1rem, 3vw, 2rem));
+  left: clamp(2rem, 5vw, 4rem);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.saga-v29__brand.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.saga-v29__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin: 0;
+  color: var(--text);
+  text-shadow: 0 0 30px rgba(255, 154, 51, 0.15);
+}
+
+.saga-v29__tagline {
+  font-size: clamp(0.62rem, 0.9vw, 0.72rem);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0.9rem 0 0;
+}
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #070a12;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.7s ease 0.1s;
+}
+
+.boot.is-hidden { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .saga-v29 { --saga-v29-track-height: 100vh; }
+  .saga-v29__brand { transition: none; opacity: 1; transform: none; }
+  .boot { transition: none; }
+}
+
+@media (max-width: 768px) {
+  .saga-v29 { --saga-v29-track-height: 380vh; }
+  .saga-v29__brand {
+    top: calc(var(--nav-h, 3.5rem) + 1rem);
+    left: 1.4rem;
+  }
+}
